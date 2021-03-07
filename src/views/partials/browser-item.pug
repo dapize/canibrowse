@@ -1,6 +1,6 @@
 mixin browser-item(data)
   article(mih="396" pad="24-0@-md" flex="jc:ce ai:ce fd:co" wdh="100%@md" hgt="100vh@md" class=data.browser).browsers__item
-    header(flex="jc:ce ai:ce fd:cor" marb="24 54@md")
+    header.browsers__item__header(flex="jc:ce ai:ce fd:cor" marb="24 46@md" pad="14-0-8" wdh="100%")
       h2.title=data.title
       .browsers__item__logo(marb="15 16@md")
         img(src="images/browser/" + data.browser + ".svg" wdh="50 80@md" hgt="50 80@md").browsers__item__logo__base

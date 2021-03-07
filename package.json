@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp",
-    "serve": "browser-sync ./dist --watch . --no-ghost-mode"
+    "serve": "browser-sync ./dist --watch . --no-ghost-mode",
+    "watcher": "gulp watcher"
   },
   "repository": {
     "type": "git",
