@@ -18,6 +18,14 @@
       lg: {
         width: 1280,
         cols: 31
+      },
+      xl: {
+        width: 1440,
+        cols: 31
+      },
+      xxl: {
+        width: 1600,
+        cols: 31
       }
     }
   });

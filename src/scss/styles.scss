@@ -85,6 +85,17 @@ body {
     }
 
     &__sos {
+      &__list {
+        position:relative;
+        overflow: hidden;
+      }
+
+      &__title {
+        position: absolute;
+        top: -100%;
+        left: 0
+      }
+
       @include mq($from: medium) {
         position: absolute;
         bottom:45px;
@@ -112,11 +123,7 @@ body {
 
     &__download {
       &__btn {
-        font-size: 12px;
-        line-height: 14px;
-
         border: 1.5px solid white;
-        padding: 13px 0;
         border-radius: 50px;
         transition: background-color .25s linear,
                     color .25s linear;
