@@ -1,0 +1,63 @@
+include partials/browser-item
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title ¿Can I Browser?
+  body
+    section(flex="jc:ce@md ai:ce@md").browsers
+      h1.browsers__title ¿Can I Browser?
+
+      +browser-item({
+        title: 'Google Chrome',
+        percentage: '55.8%',
+        download: '#',
+        version: 'Google Chrome v.123',
+        browser: 'chrome'
+      })
+
+      +browser-item({
+        title: 'Mozilla Firefox',
+        percentage: '55.8%',
+        download: '#',
+        version: 'Mozilla firefox v.123',
+        browser: 'firefox'
+      })
+
+      +browser-item({
+        title: 'Internet Explorer',
+        percentage: '55.8%',
+        download: '#',
+        version: 'Internet Explorer v.123',
+        browser: 'iexplorer'
+      })
+
+      +browser-item({
+        title: 'Microsoft Edge',
+        percentage: '55.8%',
+        download: '#',
+        version: 'Microsoft Edge v.123',
+        browser: 'edge'
+      })
+
+      +browser-item({
+        title: 'Safari',
+        percentage: '55.8%',
+        download: '#',
+        version: 'Safari v.123',
+        browser: 'safari'
+      })
+
+      +browser-item({
+        title: 'Opera',
+        percentage: '55.8%',
+        download: '#',
+        version: 'Opera v.123',
+        browser: 'opera'
+      })
+
+    link(rel="stylesheet", href="app.css")
+    script(src="app.js")

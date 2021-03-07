@@ -1,0 +1,190 @@
+@import './vendors/reset';
+@import './variables';
+@import './vendors/mq';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+// Browser List Colors
+
+.browsers {
+  color: #fff;
+  text-transform: uppercase;
+  overflow: hidden;
+
+  &__title {
+    position: absolute;
+    top: -100%;
+    left: 0;
+  }
+
+  &__item {
+
+    $iRoot: &;
+
+    &__logo {
+      position: relative;
+
+      &__base {
+        transition: opacity .25s linear;
+      }
+
+      &__hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        opacity: 0;
+        transition: opacity .25s linear;
+      }
+    }
+
+    &__percentage {
+      text-align: center;
+
+      &__number {
+        font-size: 36px;
+        line-height: 42px;
+      }
+
+      @include mq($from: medium) {
+        position: absolute;
+        top: 53px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      @include mq($from: large) {
+        top: 106px;
+      }
+    }
+
+    &__sos {
+      @include mq($from: medium) {
+        position: absolute;
+        bottom:45px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      @include mq($from: large) {
+        bottom:90px;
+      }
+    }
+
+    &__version {
+      font-size: 10px;
+      line-height: 12px;
+    }
+
+    &__download,
+    &__percentage {
+      @include mq($from: medium) {
+        opacity: 0;
+        transition: opacity .25s linear;
+      }
+    }
+
+    &__download {
+      &__btn {
+        font-size: 12px;
+        line-height: 14px;
+
+        border: 1.5px solid white;
+        padding: 13px 0;
+        border-radius: 50px;
+        transition: background-color .25s linear,
+                    color .25s linear;
+
+        &:hover {
+          background-color: #fff;
+        }
+      }
+    }
+
+    @include mq($from: medium) {
+      position: relative;
+
+      &:hover {
+        #{$iRoot}__percentage,
+        #{$iRoot}__download,
+        #{$iRoot}__logo__hover {
+          opacity: 1
+        }
+
+        #{$iRoot}__logo__base {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+.chrome {
+  background-color: #F2B536;
+
+  .browsers__item__download__btn:hover {
+    color: #F2B536
+  }
+}
+
+.firefox {
+  background-color: #F1992B;
+
+  .browsers__item__download__btn:hover {
+    color: #F1992B
+  }
+}
+
+.iexplorer {
+  background-color: #01CAFE;
+
+  .browsers__item__download__btn:hover {
+    color: #01CAFE
+  }
+}
+
+.edge {
+  background-color: #027AD5;
+
+  .browsers__item__download__btn:hover {
+    color: #027AD5
+  }
+}
+
+.safari {
+  background-color: #00A1E7;
+
+  .browsers__item__download__btn:hover {
+    color: #00A1E7
+  }
+}
+
+.opera {
+  background-color: #F2564A;
+
+  .browsers__item__download__btn:hover {
+    color: #F2564A
+  }
+}
+
+
+// Texts
+a {
+  position: relative;
+
+  &:active {
+    top: 2px;
+  }
+}
+
+.title {
+  font-size: 12px;
+  line-height: 14px;
+}
