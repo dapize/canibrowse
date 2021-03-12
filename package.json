@@ -28,5 +28,8 @@
     "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.2",
     "node-sass": "^5.0.0"
+  },
+  "dependencies": {
+    "scrape-it": "^5.3.1"
   }
 }
