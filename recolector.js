@@ -1,6 +1,5 @@
 const scrapeIt = require("scrape-it");
 
-/*
 
 // Stat Counter
 scrapeIt('https://gs.statcounter.com/', {
@@ -28,20 +27,17 @@ scrapeIt('https://www.w3counter.com/globalstats.php', {
   console.log(data)
 });
 
-*/
-
-
 // Stetic
+
 scrapeIt('https://www.stetic.com/market-share/browser/', {
   browsers: {
-    listItem: '.container > .table-striped tbody tr',
+    listItem: '.container .table-striped tbody tr',
     data: {
-      name: '.lab',
-      percentage: '.value'
+      name: 'td:nth-child(2)',
+      percentage: 'td:nth-child(3)'
     }
-  }
+  },
 }).then(({ data, response }) => {
-  console.log(data)
+  console.log(data.browsers.slice(0, 5))
 });
-
 
