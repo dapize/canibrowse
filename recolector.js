@@ -4,9 +4,12 @@ const stats = {
   init () {
     this.forSites()
       .then(arrData => {
-        //this.averaging(arrData) // continuar desde aca
+        const browsers = arrData.map(item => item.data.browsers)
+        console.log(this.averaging(browsers));
       })
-      .catch()
+      .catch(err => {
+        console.log('Error iterando los sitios');
+      })
   },
 
   forSites () {
@@ -75,17 +78,15 @@ const stats = {
 
   averaging (arr) {
     const divisorNum = arr.length;
-    const browsers = {
-      chrome: 0,
-      firefox: 0,
-      safari: 0,
-      edge: 0,
-      opera: 0,
-    };
-
-    Object.keys(browsers).forEach(item => {
-      const browser = item.data.browsers.filter(iBrowser => iBrowser.toLowerCase().includes())
-    })
+    const browsers = { chrome: 0, firefox: 0, safari: 0, edge: 0, opera: 0 };
+    Object.keys(browsers).forEach(browser => {
+      arr.forEach(dataList => {
+        const browserCatch = dataList.filter(browserData => browserData.name.toLowerCase().includes(browser));
+        if (browserCatch.length) browsers[browser] += Number(browserCatch[0].percentage.replace('%', ''))
+      })
+    });
+    for (const item in browsers) browsers[item] = Math.round((browsers[item] / divisorNum) * 100) / 100;
+    return browsers;
   }
 
 };
