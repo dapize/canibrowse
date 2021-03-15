@@ -1,0 +1,53 @@
+mixin browsers-list(list)
+  each item in list
+    article(mih="396" pad="24-0@-md" flex="jc:ce ai:ce fd:co" wdh="100%@md" hgt="100vh@md" class=item.browser).browsers__item
+      header.browsers__item__header(flex="jc:ce ai:ce fd:cor" marb="24 46@md" pad="14-0-8" wdh="100%")
+        h2.title=item.title
+        .browsers__item__logo(marb="15 16@md")
+          img(src="images/browser/" + item.browser + ".svg" wdh="50 80@md" hgt="50 80@md").browsers__item__logo__base
+          img(src="images/browser/" + item.browser + "-color.svg" wdh="50 80@md" hgt="50 80@md").browsers__item__logo__hover
+
+      p(marb="24@-md" flex="jc:ce ai:ce fd:co or:-1").browsers__item__percentage
+        span.browsers__item__percentage__number(marb="8 9@md")=item.percentage
+        span.title(flex="jc:ce ai:ce fd:co") people are using
+          br
+          | this browser
+
+      .browsers__item__download(marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%")
+        a(href=item.download cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md" download).title.browsers__item__download__btn Download
+        span.browsers__item__version=item.version
+
+      .browsers__item__sos(flex="jc:ce ai:ce fd:co" wdh="100%" pad="0-.5/5.16@md")
+        h3.title(marb="12") Available on
+
+        div(flex="jc:ce ai:ce fd:co@md-lg")
+          .browsers__item__sos__list
+            h4.browsers__item__sos__title Desktop
+            ul(flex="jc:ce ai:ce fw:w" wdh="100%")
+              if item.browser !== 'safari'
+                li(flex="jc:ce ai:ce" wdh="24" hgt="24")
+                  a(href="https://es.wikipedia.org/wiki/Microsoft_Windows" target="_blank" flex="jc:ce ai:ce")
+                    img(src="images/so/windows.svg" wdh="21" alt="Windows")
+
+              if item.browser !== 'iexplorer'
+                li(flex="jc:ce ai:ce" wdh="24" hgt="24" marl=(item.browser !== 'safari' ? '12 16@xl 21@xxl' : false))
+                  a(href="https://es.wikipedia.org/wiki/Mac_OS" target="_blank" flex="jc:ce ai:ce")
+                    img(src="images/so/apple.svg" alt="Mac OS")
+
+              if item.browser !== 'safari' && item.browser !== 'iexplorer'
+                li(flex="jc:ce ai:ce" wdh="24" hgt="24" marl="12 16@xl 21@xxl")
+                  a(href="https://es.wikipedia.org/wiki/GNU/Linux" target="_blank" flex="jc:ce ai:ce")
+                    img(src="images/so/linux.svg" alt="Linux")
+
+          if item.browser !== 'iexplorer'
+            .browsers__item__sos__list(mart="12@md-lg")
+              h4.browsers__item__sos__title Mobil
+              ul(flex="jc:ce ai:ce fw:w" wdh="100%")
+                if item.browser !== 'safari'
+                  li(flex="jc:ce ai:ce" wdh="24" hgt="24" marl="12 16@xl 21@xxl")
+                    a(href="https://es.wikipedia.org/wiki/Android" target="_blank" flex="jc:ce ai:ce")
+                      img(src="images/so/android.svg" alt="Android")
+                if item.browser !== 'iexplorer'
+                  li(flex="jc:ce ai:ce" wdh="24" hgt="24" marl="12 16@xl 21@xxl")
+                    a(href="https://es.wikipedia.org/wiki/IOS" target="_blank" flex="jc:ce ai:ce")
+                      img(src="images/so/ios.svg" alt="iOS")
