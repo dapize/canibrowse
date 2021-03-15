@@ -1,4 +1,5 @@
-const scrapeIt = require("scrape-it");
+const https = require('https');
+const scrapeIt = require('scrape-it');
 
 const stats = {
   init () {
@@ -91,5 +92,34 @@ const stats = {
 
 };
 
-stats.init();
+//stats.init();
 
+const versions = {
+  sites: [
+    {
+      from: 'chrome',
+      data () {
+        return new Promise((resolve, reject) => {
+          https.get('https://raw.githubusercontent.com/chromium/chromium/master/chrome/VERSION', function(res) {
+            let data = '';
+            res.on('data', chunk => {
+              data += chunk;
+            });
+            res.on('end', () => {
+              console.log('data: ' + data);
+              const version = data.split('\n')
+                .filter(item => item !== undefined && item !== '')
+                .map(line => line.split('=')[1])
+                .join('.')
+              resolve(version);
+            });
+          }).on('error', () => {
+            reject('Ocurrió un error obteniendo la versión de Chrome');
+          });
+        })
+      }
+    }
+  ]
+}
+
+//versions.sites[0].data().then(ver => console.log(ver));
