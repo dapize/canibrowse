@@ -131,8 +131,22 @@ const versions = {
           }).catch(err => reject(err))
         })
       }
+    },
+
+    {
+      from: 'iexplorer',
+      data () {
+        return new Promise((resolve, reject) => {
+          scrapeIt('https://www.microsoft.com/es-es/download/details.aspx?id=41628', {
+            version: '.fileinfo .header:not(.date-published) + p'
+          })
+          .then(({data}) => resolve(data.version))
+          .catch(err => reject(err))
+        })
+      }
     }
+
   ]
 }
 
-versions.sites[1].data().then(ver => console.log(ver));
+versions.sites[2].data().then(ver => console.log(ver));
