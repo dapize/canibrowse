@@ -106,7 +106,6 @@ const versions = {
               data += chunk;
             });
             res.on('end', () => {
-              console.log('data: ' + data);
               const version = data.split('\n')
                 .filter(item => item !== undefined && item !== '')
                 .map(line => line.split('=')[1])
@@ -118,8 +117,22 @@ const versions = {
           });
         })
       }
+    },
+
+    {
+      from: 'mozilla',
+      data () {
+        return new Promise((resolve, reject) => {
+          scrapeIt('https://www.mozilla.org/en-US/firefox/system-requirements/', {
+            version: '.c-version-title'
+          })
+          .then(({data}) => {
+            resolve(data.version.split(' ')[2]);
+          }).catch(err => reject(err))
+        })
+      }
     }
   ]
 }
 
-//versions.sites[0].data().then(ver => console.log(ver));
+versions.sites[1].data().then(ver => console.log(ver));
