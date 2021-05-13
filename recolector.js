@@ -150,29 +150,17 @@ const versions = {
       from: 'edge',
       data () {
         return new Promise((resolve, reject) => {
-          scrapeIt('https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel', {
-            version: '#center-doc-outline'
-          })
-          .then(({data}) => {
-            resolve(data.version)
-          })
-          .catch(err => reject(err))
-        })
-      }
-    },
-
-    {
-      from: 'edge2',
-      data () {
-        return new Promise((resolve, reject) => {
           https.get('https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel', function(res) {
             let data = '';
             res.on('data', chunk => {
               data += chunk;
             });
             res.on('end', () => {
-              //console.log(data);
-              resolve(data);
+              const title = scrapeIt.scrapeHTML(data, {
+                version: '#main h2:eq(0)'
+              });
+              const version = title.version.split(' ')[1].replace(':', '');
+              resolve(version);
             });
           }).on('error', () => {
             reject('Ocurrió un error obteniendo la versión de Chrome');
@@ -185,5 +173,3 @@ const versions = {
 }
 
 versions.sites[3].data().then(ver => console.log(ver));
-
-//.then(({data}) => resolve(data.version))
