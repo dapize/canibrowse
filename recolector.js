@@ -1,39 +1,112 @@
 const https = require('https');
 const scrapeIt = require('scrape-it');
+const fetch = require('node-fetch');
+const xml2js = require('xml2js');
+const parser = new xml2js.Parser({ attrkey: "ATTR" });
 
 const stats = {
+
   init () {
-    this.forSites()
-      .then(arrData => {
-        const browsers = arrData.map(item => item.data.browsers)
-        console.log(this.averaging(browsers));
+    const data = [this.getStats, this.getVersions].map(item => item.call(this));
+    Promise.all(data)
+      .then(result => {
+        const results = {};
+        this.objBuilder(result[0], 'percentage', results);
+        this.objBuilder(result[1], 'version', results);
+
+        console.log( results );
+
       })
       .catch(err => {
-        console.log('Error iterando los sitios');
+        console.log('error :V ', err);
       })
   },
 
-  forSites () {
+  getStats () {
     return new Promise((resolve, reject) => {
-      const dataObjs = this.sites.map(obj => obj.data());
-      Promise.all(dataObjs)
-        .then(arr => resolve(arr))
+      const statsObj = this.statsSites.map(obj => obj.data());
+
+      Promise.all(statsObj)
+        .then(arr => {
+          const browsers = arr.map(item => item.data.browsers);
+          const average = this.averaging(browsers);
+          resolve(average)
+        })
         .catch(() => reject())
     })
   },
 
-  sites: [
+  getVersions () {
+    return new Promise((resolve, reject) => {
+      const versionsSites = this.browsersSites.map(obj => obj.data());
+
+      Promise.all(versionsSites)
+        .then(arr => {
+          const versions = {};
+          arr.map(item => versions[item.name] = item.version)
+          resolve(versions)
+        })
+        .catch(() => reject())
+    })
+  },
+
+  objBuilder ( obj, name, results ) {
+    for (prop in obj) {
+      if (!results[prop]) results[prop] = {};
+      results[prop][name] = obj[prop]
+    }
+    return results;
+  },
+
+  statsSites: [
     {
       from: 'statcounter',
-      data: () => scrapeIt('https://gs.statcounter.com/', {
-        browsers: {
-          listItem: '.stats-snapshot tbody tr',
-          data: {
-            name: 'th',
-            percentage: '.count'
-          }
-        }
-      })
+      data: () => {
+        return new Promise( ( resolve, reject ) => {
+          scrapeIt('https://gs.statcounter.com/', {
+            browsers: {
+              listItem: '.stats-snapshot tbody tr',
+              data: {
+                name: 'th',
+                percentage: '.count'
+              }
+            }
+          })
+            .then( result => {
+
+              fetch('https://gs.statcounter.com/chart.php?device=Desktop%20%26%20Mobile%20%26%20Tablet%20%26%20Console&device_hidden=desktop%2Bmobile%2Btablet%2Bconsole&multi-device=true&statType_hidden=browser&region_hidden=ww&granularity=monthly&statType=Browser&region=Worldwide&fromInt=202004&toInt=202104&fromMonthYear=2020-04&toMonthYear=2021-04&hideCaption=true&bottomLegend=true&siteStyling=true&siteChartMargins=true&forceJson=true&setChartTitle=Browser%20Market%20Share%20Worldwide')
+                .then(res => res.json())
+                .then( json => {
+
+                  parser.parseString(json.xml, (error, resultParsed) => {
+                    if (error) reject(error);
+                    const sets = resultParsed.chart.dataset.filter(item => item['ATTR'].seriesName === 'IE');
+                    const firstSet = sets[0].set;
+                    const percentage = firstSet[firstSet.length - 1]['ATTR'].value;
+
+                    result.data.browsers = result.data.browsers.filter(item => item.name !== 'Samsung Internet');
+
+                    result.data.browsers.push({
+                      name: 'ie',
+                      percentage: percentage
+                    })
+
+                    resolve(result);
+                  });
+
+                })
+                .catch(err => {
+                  reject(err)
+                });
+
+              // resolve(result);
+              //resolve( result.data.browsers );
+            })
+            .catch(err => reject(err));
+        })
+      }
+
+
     },
 
     {
@@ -71,36 +144,20 @@ const stats = {
                 browsers: arr
               }
             })
-          }).catch(err => reject(err))
+          })
+          .catch(err => reject(err))
         })
       }
     }
+
   ],
 
-  averaging (arr) {
-    const divisorNum = arr.length;
-    const browsers = { chrome: 0, firefox: 0, safari: 0, edge: 0, opera: 0 };
-    Object.keys(browsers).forEach(browser => {
-      arr.forEach(dataList => {
-        const browserCatch = dataList.filter(browserData => browserData.name.toLowerCase().includes(browser));
-        if (browserCatch.length) browsers[browser] += Number(browserCatch[0].percentage.replace('%', ''))
-      })
-    });
-    for (const item in browsers) browsers[item] = Math.round((browsers[item] / divisorNum) * 100) / 100;
-    return browsers;
-  }
-
-};
-
-//stats.init();
-
-const versions = {
-  sites: [
+  browsersSites: [
     {
       from: 'chrome',
       data () {
         return new Promise((resolve, reject) => {
-          https.get('https://raw.githubusercontent.com/chromium/chromium/master/chrome/VERSION', function(res) {
+          https.get('https://raw.githubusercontent.com/chromium/chromium/master/chrome/VERSION', res => {
             let data = '';
             res.on('data', chunk => {
               data += chunk;
@@ -110,7 +167,10 @@ const versions = {
                 .filter(item => item !== undefined && item !== '')
                 .map(line => line.split('=')[1])
                 .join('.')
-              resolve(version);
+              resolve({
+                name: this.from,
+                version: version
+              });
             });
           }).on('error', () => {
             reject('Ocurrió un error obteniendo la versión de Chrome');
@@ -120,27 +180,33 @@ const versions = {
     },
 
     {
-      from: 'mozilla',
+      from: 'firefox',
       data () {
         return new Promise((resolve, reject) => {
           scrapeIt('https://www.mozilla.org/en-US/firefox/system-requirements/', {
             version: '.c-version-title'
           })
           .then(({data}) => {
-            resolve(data.version.split(' ')[2]);
+            resolve({
+              name: this.from,
+              version: data.version.split(' ')[2]
+            });
           }).catch(err => reject(err))
         })
       }
     },
 
     {
-      from: 'iexplorer',
+      from: 'ie',
       data () {
         return new Promise((resolve, reject) => {
           scrapeIt('https://www.microsoft.com/es-es/download/details.aspx?id=41628', {
             version: '.fileinfo .header:not(.date-published) + p'
           })
-          .then(({data}) => resolve(data.version))
+          .then(({ data }) => resolve({
+            name: this.from,
+            version: data.version
+          }))
           .catch(err => reject(err))
         })
       }
@@ -150,7 +216,7 @@ const versions = {
       from: 'edge',
       data () {
         return new Promise((resolve, reject) => {
-          https.get('https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel', function(res) {
+          https.get('https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel', res => {
             let data = '';
             res.on('data', chunk => {
               data += chunk;
@@ -160,7 +226,10 @@ const versions = {
                 version: '#main h2:eq(0)'
               });
               const version = title.version.split(' ')[1].replace(':', '');
-              resolve(version);
+              resolve({
+                name: this.from,
+                version: version
+              });
             });
           }).on('error', () => {
             reject('Ocurrió un error obteniendo la versión de Chrome');
@@ -173,7 +242,7 @@ const versions = {
       from: 'opera',
       data () {
         return new Promise((resolve, reject) => {
-          https.get('https://ftp.opera.com/ftp/pub/opera/desktop/', function(res) {
+          https.get('https://ftp.opera.com/ftp/pub/opera/desktop/', res => {
             let data = '';
             res.on('data', chunk => {
               data += chunk;
@@ -197,7 +266,10 @@ const versions = {
                 });
               const lastVersion = Math.max(...lastestVersions);
               const realLastVersion = objVersion['v' + lastVersion];
-              resolve(realLastVersion);
+              resolve({
+                name: this.from,
+                version: realLastVersion
+              });
             });
           }).on('error', () => {
             reject('Ocurrió un error obteniendo la versión de Chrome');
@@ -205,7 +277,41 @@ const versions = {
         })
       }
     },
-  ]
-}
 
-versions.sites[4].data().then(ver => console.log(ver));
+    {
+      from: 'safari',
+      data () {
+        return new Promise((resolve, reject) => {
+          fetch('https://developer.apple.com/tutorials/data/documentation/safari-release-notes.json')
+            .then(res => res.json())
+            .then((json) => {
+              resolve({
+                name: this.from,
+                version: json.topicSections[0].title.split(' ')[1]
+              })
+            })
+            .catch(() => {
+              reject()
+            })
+        })
+      }
+    },
+  ],
+
+  averaging (arr) {
+    const divisorNum = arr.length;
+    const browsers = { chrome: 0, firefox: 0, safari: 0, edge: 0, opera: 0, ie: 0 };
+    Object.keys(browsers).forEach(browser => {
+      arr.forEach(dataList => {
+        const browserCatch = dataList.filter(browserData => browserData.name.toLowerCase().includes(browser));
+        if (browserCatch.length) browsers[browser] += Number(browserCatch[0].percentage.replace('%', ''))
+      })
+    });
+    for (const item in browsers) browsers[item] = (Math.round((browsers[item] / divisorNum) * 100) / 100) + '%';
+    return browsers;
+  }
+
+};
+
+stats.init();
+//stats.statsSites[0].data().then(result => console.log( result.data.browsers ));
