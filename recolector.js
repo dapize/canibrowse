@@ -169,7 +169,43 @@ const versions = {
       }
     },
 
+    {
+      from: 'opera',
+      data () {
+        return new Promise((resolve, reject) => {
+          https.get('https://ftp.opera.com/ftp/pub/opera/desktop/', function(res) {
+            let data = '';
+            res.on('data', chunk => {
+              data += chunk;
+            });
+            res.on('end', () => {
+              const versions = data.split('\n')
+                .filter(item => item !== undefined && item !== '' && item.substring(0, 2) === '<a')
+                .map( line => {
+                  const title = scrapeIt.scrapeHTML(line, {
+                    version: 'a'
+                  });
+                  return title.version.replace('/', '');
+                });
+              const objVersion = {};
+              const lastestVersions = versions
+                .slice(versions.length - 5)
+                .map(version => {
+                  const vNumber = Number(version.split('.').join(''));
+                  objVersion['v' + vNumber] = version;
+                  return vNumber
+                });
+              const lastVersion = Math.max(...lastestVersions);
+              const realLastVersion = objVersion['v' + lastVersion];
+              resolve(realLastVersion);
+            });
+          }).on('error', () => {
+            reject('Ocurrió un error obteniendo la versión de Chrome');
+          });
+        })
+      }
+    },
   ]
 }
 
-versions.sites[3].data().then(ver => console.log(ver));
+versions.sites[4].data().then(ver => console.log(ver));
