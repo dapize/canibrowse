@@ -1,0 +1,26 @@
+{
+  "chrome": {
+    "percentage": "59.21%",
+    "version": "94.0.4604.0"
+  },
+  "firefox": {
+    "percentage": "5.34%",
+    "version": "90.0.2"
+  },
+  "safari": {
+    "percentage": "23.91%",
+    "version": "15"
+  },
+  "edge": {
+    "percentage": "4.36%",
+    "version": "92.0.902.67"
+  },
+  "opera": {
+    "percentage": "1.22%",
+    "version": "78.0.4093.112"
+  },
+  "ie": {
+    "percentage": "0.24%",
+    "version": "11.0.0.4"
+  }
+}

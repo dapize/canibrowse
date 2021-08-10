@@ -3,22 +3,19 @@ const scrapeIt = require('scrape-it');
 const fetch = require('node-fetch');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser({ attrkey: "ATTR" });
+const fs = require('fs');
 
 const stats = {
 
-  init () {
-    const data = [this.getStats, this.getVersions].map(item => item.call(this));
-    Promise.all(data)
-      .then(result => {
-        const results = {};
-        this.objBuilder(result[0], 'percentage', results);
-        this.objBuilder(result[1], 'version', results);
-
-        console.log( results );
-
+  async init () {
+    const numbers = [this.getStats, this.getVersions].map(item => item.call(this));
+    Promise.all( numbers )
+      .then( data => {
+        const results = this.processor( data );
+        this.jsonCreator( results );
       })
-      .catch(err => {
-        console.log('error :V ', err);
+      .catch( err => {
+        console.log('Error!!!!', err);
       })
   },
 
@@ -48,6 +45,20 @@ const stats = {
         })
         .catch(() => reject())
     })
+  },
+
+  processor ( data ) {
+    const results = {};
+    this.objBuilder(data[0], 'percentage', results);
+    this.objBuilder(data[1], 'version', results);
+    return results;
+  },
+
+  jsonCreator ( results ) {
+    fs.writeFile('./results.json', JSON.stringify(results, null, 2), err => {
+      if (err) return console.log(err);
+      console.log("The file was saved!");
+    });
   },
 
   objBuilder ( obj, name, results ) {
@@ -313,5 +324,5 @@ const stats = {
 
 };
 
+
 stats.init();
-//stats.statsSites[0].data().then(result => console.log( result.data.browsers ));
