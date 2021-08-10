@@ -4,6 +4,10 @@ const fetch = require('node-fetch');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser({ attrkey: "ATTR" });
 const fs = require('fs');
+const gulpFile = require('./gulpfile.js');
+
+
+const resultsFile = './results.json';
 
 const stats = {
 
@@ -12,7 +16,24 @@ const stats = {
     Promise.all( numbers )
       .then( data => {
         const results = this.processor( data );
-        this.jsonCreator( results );
+
+        // all correct?
+        const allCorrect = this.allCorrect( results );
+        if ( !allCorrect ) return console.log(' is not correct, something is not working good');
+
+        // any update?
+        const _this = this;
+        (async function () {
+          const updated = await _this.someUpdate( results );
+          if ( !updated ) return console.log('all good, nothing to update');
+
+          // I need to create the page again
+          _this.jsonCreator( results );
+          // const builder = await gulpFile.default();
+          console.log('JSON creado');
+
+        }());
+
       })
       .catch( err => {
         console.log('Error!!!!', err);
@@ -54,10 +75,39 @@ const stats = {
     return results;
   },
 
+  allCorrect ( results ) {
+    const browserNums = this.oneNumberList(results).filter( num => !isNaN( num ) );
+    return browserNums.length === Object.keys( results ).length;
+  },
+
+  oneNumberList ( results ) {
+    return Object.keys( results ).map( browser => {
+      const percentage = results[ browser ].percentage.replace('%', '')
+      const version = results[ browser ].version.split('.').join('')
+      return Number( percentage ) + Number( version );
+    })
+  },
+
+  someUpdate ( results ) {
+    return new Promise( ( resolve, reject ) => {
+      fs.readFile( resultsFile, ( err, data ) => {
+        if ( err ) return reject( err );
+
+        const arrNumsSaved = this.oneNumberList( JSON.parse( data ) );
+        const arrNumsCurrent = this.oneNumberList( results );
+
+        // cheking if are equal
+        const numSaved = arrNumsSaved.reduce((acc, curr) => acc + curr);
+        const numGetted = arrNumsCurrent.reduce((acc, curr) => acc + curr);
+
+        resolve(numSaved !== numGetted);
+      })
+    })
+  },
+
   jsonCreator ( results ) {
-    fs.writeFile('./results.json', JSON.stringify(results, null, 2), err => {
+    fs.writeFile( resultsFile, JSON.stringify(results, null, 2), err => {
       if (err) return console.log(err);
-      console.log("The file was saved!");
     });
   },
 
@@ -326,3 +376,4 @@ const stats = {
 
 
 stats.init();
+
