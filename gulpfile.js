@@ -5,12 +5,15 @@ sass.compiler = require('node-sass');
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+const data = require('gulp-data');
+const fs = require('fs');
 
 const views = () => {
   return src('./src/views/index.pug')
-  .pipe(pug({
-    pretty: true
+  .pipe(data(function(file) {
+    return JSON.parse(fs.readFileSync('./results.json'))
   }))
+  .pipe(pug({ pretty: true }))
   .pipe(dest('./dist'))
 };
 task('views', views);

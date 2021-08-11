@@ -6,52 +6,53 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title ¿Can I Browser?
+    meta(name="description" content="Place the meta description text here.")
+    title Can I browse... in Chrome, Firefox, IE, Edge, Safari, Opera
   body
     section(flex="jc:ce@md ai:ce@md").browsers
-      h1.browsers__title ¿Can I Browser?
+      h1.browsers__title Can I brownse... in Chrome, Firefox, IE, Edge, Safari, Opera
 
       +browsers-list([
         {
           title: 'Google Chrome',
-          percentage: '55.8%',
-          download: '#',
-          version: 'Google Chrome v.123',
+          percentage: chrome.percentage,
+          download: 'https://www.google.com/chrome/',
+          version: 'Google Chrome v.' + chrome.version,
           browser: 'chrome'
         },
         {
           title: 'Mozilla Firefox',
-          percentage: '55.8%',
-          download: '#',
-          version: 'Mozilla firefox v.123',
+          percentage: firefox.percentage,
+          download: 'https://www.mozilla.org/en-US/firefox/new/',
+          version: 'Mozilla firefox v.' + firefox.version,
           browser: 'firefox'
         },
         {
           title: 'Internet Explorer',
-          percentage: '55.8%',
-          download: '#',
-          version: 'Internet Explorer v.123',
+          percentage: ie.percentage,
+          download: 'https://www.microsoft.com/en-us/download/details.aspx?id=41628',
+          version: 'Internet Explorer v.' + ie.version,
           browser: 'iexplorer'
         },
         {
           title: 'Microsoft Edge',
-          percentage: '55.8%',
-          download: '#',
-          version: 'Microsoft Edge v.123',
+          percentage: edge.percentage,
+          download: 'https://www.microsoft.com/en-us/edge',
+          version: 'Microsoft Edge v.' + edge.version,
           browser: 'edge'
         },
         {
           title: 'Safari',
-          percentage: '55.8%',
-          download: '#',
-          version: 'Safari v.123',
+          percentage: safari.percentage,
+          download: 'https://www.support.apple.com/downloads/safari',
+          version: 'Safari v.' + safari.version,
           browser: 'safari'
         },
         {
           title: 'Opera',
-          percentage: '55.8%',
-          download: '#',
-          version: 'Opera v.123',
+          percentage: opera.percentage,
+          download: 'https://www.opera.com/download',
+          version: 'Opera v.' + opera.version,
           browser: 'opera'
         }
       ])
