@@ -54,7 +54,7 @@
 
     // dictionaries
     const texts = {
-      percentage: 'de personas usando <br>este navegador',
+      percentage: 'de personas usan <br>este navegador',
       download: 'descargar',
       available: 'disponible en'
     };
