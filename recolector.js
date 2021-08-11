@@ -11,7 +11,7 @@ const resultsFile = './results.json';
 
 const stats = {
 
-  async init () {
+  init () {
     const numbers = [this.getStats, this.getVersions].map(item => item.call(this));
     Promise.all( numbers )
       .then( data => {
@@ -22,18 +22,13 @@ const stats = {
         if ( !allCorrect ) return console.log(' is not correct, something is not working good');
 
         // any update?
-        const _this = this;
-        (async function () {
-          const updated = await _this.someUpdate( results );
-          if ( !updated ) return console.log('all good, nothing to update');
-
-          // I need to create the page again
-          _this.jsonCreator( results );
-          // const builder = await gulpFile.default();
-          console.log('JSON creado');
-
-        }());
-
+        this.someUpdate( results )
+          .then( existsUpdate  => {
+            existsUpdate ? this.buildPage( results ) : console.log('all good, nothing to update');
+          })
+          .catch(() => {
+            this.buildPage();
+          })
       })
       .catch( err => {
         console.log('Error!!!!', err);
@@ -105,9 +100,19 @@ const stats = {
     })
   },
 
-  jsonCreator ( results ) {
+  buildPage ( results ) {
+    // I need to create the page again
+    this.jsonCreator( results, created => {
+      if ( !created ) return console.log('One error happen creating the JSON file')
+      gulpFile.default();
+      console.log('Page recreated with successfully')
+    });
+  },
+
+  jsonCreator ( results, cb ) {
     fs.writeFile( resultsFile, JSON.stringify(results, null, 2), err => {
-      if (err) return console.log(err);
+      if ( err ) return cb( false );
+      cb( true );
     });
   },
 
@@ -374,6 +379,4 @@ const stats = {
 
 };
 
-
 stats.init();
-
