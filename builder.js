@@ -12,6 +12,7 @@ const resultsFile = './results.json';
 const stats = {
 
   init () {
+    console.log('¡Builder INIT!');
     const numbers = [this.getStats, this.getVersions].map(item => item.call(this));
     Promise.all( numbers )
       .then( data => {
@@ -379,4 +380,4 @@ const stats = {
 
 };
 
-stats.init();
+exports.default = stats;

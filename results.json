@@ -1,23 +1,23 @@
 {
   "chrome": {
-    "percentage": "59.18%",
-    "version": "94.0.4604.0"
+    "percentage": "59.15%",
+    "version": "94.0.4606.0"
   },
   "firefox": {
-    "percentage": "5.39%",
+    "percentage": "5.43%",
     "version": "91.0"
   },
   "safari": {
-    "percentage": "23.85%",
+    "percentage": "23.78%",
     "version": "15"
   },
   "edge": {
-    "percentage": "4.41%",
+    "percentage": "4.46%",
     "version": "92.0.902.67"
   },
   "opera": {
-    "percentage": "1.22%",
-    "version": "78.0.4093.112"
+    "percentage": "1.23%",
+    "version": "78.0.4093.147"
   },
   "ie": {
     "percentage": "0.24%",
