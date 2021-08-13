@@ -28,7 +28,7 @@ const stats = {
             existsUpdate ? this.buildPage( results ) : console.log('all good, nothing to update');
           })
           .catch(() => {
-            this.buildPage();
+            this.buildPage( results );
           })
       })
       .catch( err => {

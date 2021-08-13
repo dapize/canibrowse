@@ -1,4 +1,4 @@
-const {task, src, dest, parallel, watch} = require('gulp')
+const { task, src, dest, parallel, watch } = require('gulp')
 const pug = require('gulp-pug');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');

@@ -1,10 +1,11 @@
 {
   "name": "canibrowser",
   "version": "1.0.0",
-  "description": ":v",
+  "description": "Is a project to see the percentage of the browsers most used in all the net",
   "main": "index.js",
   "scripts": {
-    "start": "node app"
+    "build": "gulp",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -16,12 +17,14 @@
   "bugs": {
     "url": "https://github.com/dapize/canibrowser/issues"
   },
-  "homepage": "https://github.com/dapize/canibrowser#readme",
-  "devDependencies": {
-    "browser-sync": "^2.26.14"
+  "engines": {
+    "node": "14.x"
   },
+  "homepage": "https://github.com/dapize/canibrowser#readme",
+  "devDependencies": {},
   "dependencies": {
     "basic-auth": "^2.0.1",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",

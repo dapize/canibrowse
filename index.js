@@ -1,5 +1,11 @@
 const build = require('./builder');
 const basicAuth = require('./auth');
+const fs = require('fs');
+
+if (!fs.existsSync(__dirname + '/dist')) build.default.init.call(build.default);
+
+const dotenv = require('dotenv');
+dotenv.config();
 
 const express = require('express');
 const app = express();
@@ -19,6 +25,7 @@ app.get('/', ( req, res ) => {
 });
 
 app.get('/start', ( req, res ) => {
+  console.log('watcher started');
   res.send('started');
   setInterval(() => {
     build.default.init.call(build.default);
