@@ -1,6 +1,7 @@
 const build = require('./builder');
 const basicAuth = require('./auth');
 const fs = require('fs');
+const watcher = require('./watch');
 
 if (!fs.existsSync(__dirname + '/dist')) build.default.init.call(build.default);
 
@@ -27,7 +28,5 @@ app.get('/', ( req, res ) => {
 app.get('/start', ( req, res ) => {
   console.log('watcher started');
   res.send('started');
-  setInterval(() => {
-    build.default.init.call(build.default);
-  }, 3600000)
+  watcher.default();
 });
