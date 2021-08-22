@@ -3,6 +3,7 @@ const express = require('express');
 const https = require('https');
 const helmet = require('helmet');
 const hsts = require('hsts');
+const compression = require('compression');
 
 const build = require('./builder');
 const basicAuth = require('./auth');
@@ -19,6 +20,11 @@ const objHsts = {
   preload: true
 };
 
+const shouldCompress = (req, res) => {
+  if (req.headers['x-no-compression']) return false
+  return compression.filter(req, res)
+}
+
 // set up plain http server
 const http = express();
 http.get('*', (req, res) => {
@@ -26,12 +32,14 @@ http.get('*', (req, res) => {
 })
 http.use(helmet());
 http.use(hsts(objHsts));
+http.use(compression({ filter: shouldCompress }))
 http.listen(80);
 
 // set up https
 const app = express();
 app.use(helmet());
 app.use(hsts(objHsts));
+app.use(compression({ filter: shouldCompress }))
 app.use(basicAuth);
 app.use(express.static(__dirname + '/dist'));
 
