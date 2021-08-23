@@ -42,6 +42,13 @@ const images = () => {
 };
 task('images', images);
 
+const favicon = () => {
+  return src('./src/favicon.ico')
+  .pipe(dest('./dist'))
+};
+
+task('favicon', favicon);
+
 task('watcher', () => {
   watch('./src/views/**/*', views);
   watch('./src/scss/**/*', styles);
@@ -49,4 +56,4 @@ task('watcher', () => {
   watch('./src/images/**/*', images);
 });
 
-exports.default = parallel('views', 'styles', 'scripts', 'images');
+exports.default = parallel('views', 'styles', 'scripts', 'images', 'favicon');
