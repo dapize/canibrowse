@@ -21,16 +21,21 @@ html(lang="en")
     meta(property='twitter:title' content='Can I browse... in Chrome, Firefox, IE, Edge, Safari or Opera?')
     meta(property='twitter:description' content="'Can I browse' provides stats of the most used browsers in all the net.")
     title Can I browse... in Chrome, Firefox, IE, Edge, Safari or Opera?
-
-    // Global site tag (gtag.js) - Google Analytics
     script(async src='https://www.googletagmanager.com/gtag/js?id=G-E4QFPSG4DV')
     script.
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-E4QFPSG4DV');
+    style.
+      body {
+        transition: opacity 0.25s ease-in-out;
+      }
+      .loading {
+        opacity: 0;
+      }
 
-  body
+  body.loading
     section(flex="jc:ce@md ai:ce@md").browsers
       h1.browsers__title Can I browse... in Chrome, Firefox, IE, Edge, Safari or Opera?
 

@@ -90,6 +90,9 @@
       bItem.querySelector( targets.available ).textContent = texts.available;
     })
   }
+
+  // ready!
+  document.body.classList.remove('loading');
 }());
 
 
