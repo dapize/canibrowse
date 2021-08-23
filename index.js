@@ -30,14 +30,14 @@ const http = express();
 http.get('*', (req, res) => {
   res.redirect('https://' + req.headers.host + req.url);
 })
-http.use(helmet());
+http.use(helmet({ contentSecurityPolicy: false }));
 http.use(hsts(objHsts));
 http.use(compression({ filter: shouldCompress }))
 http.listen(80);
 
 // set up https
 const app = express();
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hsts(objHsts));
 app.use(compression({ filter: shouldCompress }))
 app.use(basicAuth);
