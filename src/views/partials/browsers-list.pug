@@ -14,8 +14,8 @@ mixin browsers-list(list)
           | this browser
 
       .browsers__item__download(marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%")
-        a(href=item.download cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md" download).title.browsers__item__download__btn Download
-        span.browsers__item__version=item.version
+        a(href=item.download cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md").title.browsers__item__download__btn Download
+        span.browsers__item__version #{item.title} v.#{item.version}
 
       .browsers__item__sos(flex="jc:ce ai:ce fd:co" wdh="100%" pad="0-.5/5.16@md")
         h3.title(marb="12") Available on

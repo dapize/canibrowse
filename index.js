@@ -6,8 +6,7 @@ const hsts = require('hsts');
 const compression = require('compression');
 
 const build = require('./builder');
-const basicAuth = require('./auth');
-const watcher = require('./watch');
+require('./watch');
 
 if (!fs.existsSync(__dirname + '/dist')) build.default.init.call(build.default);
 
@@ -40,17 +39,10 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hsts(objHsts));
 app.use(compression({ filter: shouldCompress }))
-app.use(basicAuth);
 app.use(express.static(__dirname + '/dist'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html')
-});
-
-app.get('/start', (req, res) => {
-  console.log('watcher started');
-  res.send('started');
-  watcher.default();
 });
 
 const PORT = 443;

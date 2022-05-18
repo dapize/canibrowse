@@ -10,7 +10,7 @@ const fs = require('fs');
 
 const views = () => {
   return src('./src/views/index.pug')
-  .pipe(data(function(file) {
+  .pipe(data(function() {
     return JSON.parse(fs.readFileSync('./results.json'))
   }))
   .pipe(pug({ pretty: true }))
