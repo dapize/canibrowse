@@ -1,3 +1,5 @@
+const browserItems = document.querySelectorAll('.browsers__item');
+
 (function () {
   // CONFIG
   const layout = new Layouter({
@@ -47,6 +49,12 @@
     layout.set(node);
   });
 
+  // ready!
+  document.body.classList.remove('loading');
+}());
+
+
+(function () {
   // AUTO LANGUAGE
   let currentLang = navigator.language;
   currentLang = currentLang.substring(0, 2);
@@ -65,7 +73,6 @@
       available: '.browsers__item__sos .title'
     }
 
-    const browserItems = document.querySelectorAll('.browsers__item');
     Array.prototype.forEach.call(browserItems, function( bItem ) {
       let titleBrowser = bItem.querySelector('.title').textContent.toLowerCase();
 
@@ -90,10 +97,45 @@
       bItem.querySelector( targets.available ).textContent = texts.available;
     })
   }
-
-  // ready!
-  document.body.classList.remove('loading');
 }());
 
 
+(function () {
+  // Counter in hover
+  const counterAnim = (target, start = 0, end, duration, callBack) => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        target.innerText = (progress * (end - start) + start).toFixed(2) + '%';
+        if (progress < 1) {
+          const idAnim = window.requestAnimationFrame(step);
+          callBack( idAnim );
+        }
+    };
+    const idAnim = window.requestAnimationFrame(step);
+    callBack( idAnim );
+  };
 
+  Array.prototype.forEach.call(browserItems, function (item) {
+    const percentage = item.querySelector('.browsers__item__percentage__number');
+    const total = Number(percentage.textContent.replace('%', ''));
+    let idAnimation = null;
+    item.addEventListener('mouseenter', function () {
+      counterAnim(percentage, 0, total, 1000, function (idAnim) {
+        idAnimation = idAnim;
+      });
+    });
+    item.addEventListener('mouseleave', function () {
+      window.cancelAnimationFrame(idAnimation);
+    })
+  })
+}());
+
+(function () {
+  const infoIcon = document.querySelector('.info');
+  if (!infoIcon) return;
+  infoIcon.addEventListener('click', function () {
+    alert('Can I Browse v1.1\n\nHecho con ❤ por Daniel P Z - danielpz@outlook.com')
+  })
+}());

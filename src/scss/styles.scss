@@ -23,6 +23,7 @@ body {
   }
 
   &__item {
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 
     $iRoot: &;
 
@@ -138,6 +139,10 @@ body {
       position: relative;
 
       &:hover {
+        z-index: 5;
+        transform: scale(1.02);
+        box-shadow: -1px 0 5px #292D3E, 1px 0 5px #292D3E;
+
         #{$iRoot}__percentage,
         #{$iRoot}__download,
         #{$iRoot}__logo__hover {
@@ -217,4 +222,21 @@ a {
 .title {
   font-size: 12px;
   line-height: 14px;
+}
+
+// Icon to get info
+.info {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  z-index: 10;
+  opacity: .7;
+  transition: opacity .2s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
 }
