@@ -1,6 +1,6 @@
 @import './vendors/reset';
 @import './variables';
-@import './vendors/mq';
+@import 'node_modules/sass-mq/_mq.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {

@@ -6,7 +6,6 @@ const hsts = require('hsts');
 const compression = require('compression');
 
 const build = require('./builder');
-require('./watch');
 
 if (!fs.existsSync(__dirname + '/dist')) build.default.init.call(build.default);
 
