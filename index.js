@@ -10,9 +10,6 @@ require('./watch');
 
 if (!fs.existsSync(__dirname + '/dist')) build.default.init.call(build.default);
 
-const dotenv = require('dotenv');
-dotenv.config();
-
 const objHsts = {
   maxAge: 31536000,
   includeSubDomains: true,
