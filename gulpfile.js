@@ -28,7 +28,7 @@ const styles = () => {
 task('styles', styles);
 
 const scripts = () => {
-  return src(['./src/js/vendors/layouter.js', './src/js/app.js'])
+  return src(['./src/js/app.js'])
   .pipe(concat('app.js'))
   .pipe(uglify().on('error', function(e){console.log(e)}))
   .pipe(dest('./dist'));
