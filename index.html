@@ -19,17 +19,58 @@
     <meta property="twitter:title" content="Can I browse... in Chrome, Firefox, IE, Edge, Safari or Opera?">
     <meta property="twitter:description" content="'Can I browse' provides stats of the most used browsers in all the net.">
     <title>Can I browse... in Chrome, Firefox, IE, Edge, Safari or Opera?</title>
-    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+      body {
+        transition: opacity 0.25s ease-in-out;
+      }
+      .loading {
+        opacity: 0;
+      }
+    </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E4QFPSG4DV"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-E4QFPSG4DV');
-      
     </script>
+    <script>
+      window.layouterConfig = {
+        breakpoints: {
+          xs: {
+            width: 360,
+            cols: 15
+          },
+          sm: {
+            width: 768,
+            cols: 31
+          },
+          md: {
+            width: 1024,
+            cols: 31
+          },
+          lg: {
+            width: 1280,
+            cols: 31
+          },
+          xl: {
+            width: 1440,
+            cols: 31
+          },
+          xxl: {
+            width: 1600,
+            cols: 31
+          }
+        },
+        ready: function () {
+          document.body.classList.remove('loading');
+        }
+      }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/layouter.js/dist/layouter.umd.js"></script>
   </head>
-  <body>
+  <body class="loading">
     <section class="browsers" flex="jc:ce@md ai:ce@md">
       <h1 class="browsers__title">Can I browse... in Chrome, Firefox, IE, Edge, Safari or Opera?</h1>
       <article class="chrome browsers__item" mih="396" pad="24-0@-md" flex="jc:ce ai:ce fd:co" wdh="100%@md" hgt="100vh@md">
@@ -37,8 +78,8 @@
           <h2 class="title">Google Chrome</h2>
           <div class="browsers__item__logo" marb="15 16@md"><img class="browsers__item__logo__base" src="images/browser/chrome.svg" wdh="50 80@md" hgt="50 80@md" alt="Google Chrome"/><img class="browsers__item__logo__hover" src="images/browser/chrome-color.svg" wdh="50 80@md" hgt="50 80@md" alt="Google Chrome"/></div>
         </header>
-        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">59.14%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
-        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.google.com/chrome/" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md" download="download">Download</a><span class="browsers__item__version">Google Chrome v.95.0.4609.0</span></div>
+        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">59.41%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
+        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.google.com/chrome/" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md">Download</a><span class="browsers__item__version">Google Chrome v.98.0.4701.0</span></div>
         <div class="browsers__item__sos" flex="jc:ce ai:ce fd:co" wdh="100%" pad="0-.5/5.16@md">
           <h3 class="title" marb="12">Available on</h3>
           <div flex="jc:ce ai:ce fd:co@md-lg">
@@ -65,8 +106,8 @@
           <h2 class="title">Mozilla Firefox</h2>
           <div class="browsers__item__logo" marb="15 16@md"><img class="browsers__item__logo__base" src="images/browser/firefox.svg" wdh="50 80@md" hgt="50 80@md" alt="Mozilla Firefox"/><img class="browsers__item__logo__hover" src="images/browser/firefox-color.svg" wdh="50 80@md" hgt="50 80@md" alt="Mozilla Firefox"/></div>
         </header>
-        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">5.44%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
-        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.mozilla.org/en-US/firefox/new/" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md" download="download">Download</a><span class="browsers__item__version">Mozilla firefox v.91.0</span></div>
+        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">5.06%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
+        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.mozilla.org/en-US/firefox/new/" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md">Download</a><span class="browsers__item__version">Mozilla Firefox v.101.0.1</span></div>
         <div class="browsers__item__sos" flex="jc:ce ai:ce fd:co" wdh="100%" pad="0-.5/5.16@md">
           <h3 class="title" marb="12">Available on</h3>
           <div flex="jc:ce ai:ce fd:co@md-lg">
@@ -94,7 +135,7 @@
           <div class="browsers__item__logo" marb="15 16@md"><img class="browsers__item__logo__base" src="images/browser/iexplorer.svg" wdh="50 80@md" hgt="50 80@md" alt="Internet Explorer"/><img class="browsers__item__logo__hover" src="images/browser/iexplorer-color.svg" wdh="50 80@md" hgt="50 80@md" alt="Internet Explorer"/></div>
         </header>
         <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">0.24%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
-        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.microsoft.com/en-us/download/details.aspx?id=41628" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md" download="download">Download</a><span class="browsers__item__version">Internet Explorer v.11.0.0.4</span></div>
+        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.microsoft.com/en-us/download/details.aspx?id=41628" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md">Download</a><span class="browsers__item__version">Internet Explorer v.11.0.0.4</span></div>
         <div class="browsers__item__sos" flex="jc:ce ai:ce fd:co" wdh="100%" pad="0-.5/5.16@md">
           <h3 class="title" marb="12">Available on</h3>
           <div flex="jc:ce ai:ce fd:co@md-lg">
@@ -112,8 +153,8 @@
           <h2 class="title">Microsoft Edge</h2>
           <div class="browsers__item__logo" marb="15 16@md"><img class="browsers__item__logo__base" src="images/browser/edge.svg" wdh="50 80@md" hgt="50 80@md" alt="Microsoft Edge"/><img class="browsers__item__logo__hover" src="images/browser/edge-color.svg" wdh="50 80@md" hgt="50 80@md" alt="Microsoft Edge"/></div>
         </header>
-        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">4.48%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
-        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.microsoft.com/en-us/edge" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md" download="download">Download</a><span class="browsers__item__version">Microsoft Edge v.92.0.902.67</span></div>
+        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">4.65%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
+        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.microsoft.com/en-us/edge" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md">Download</a><span class="browsers__item__version">Microsoft Edge v.102.0.1245.50</span></div>
         <div class="browsers__item__sos" flex="jc:ce ai:ce fd:co" wdh="100%" pad="0-.5/5.16@md">
           <h3 class="title" marb="12">Available on</h3>
           <div flex="jc:ce ai:ce fd:co@md-lg">
@@ -140,8 +181,8 @@
           <h2 class="title">Safari</h2>
           <div class="browsers__item__logo" marb="15 16@md"><img class="browsers__item__logo__base" src="images/browser/safari.svg" wdh="50 80@md" hgt="50 80@md" alt="Safari"/><img class="browsers__item__logo__hover" src="images/browser/safari-color.svg" wdh="50 80@md" hgt="50 80@md" alt="Safari"/></div>
         </header>
-        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">23.76%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
-        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.support.apple.com/downloads/safari" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md" download="download">Download</a><span class="browsers__item__version">Safari v.15</span></div>
+        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">24.62%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
+        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.support.apple.com/downloads/safari" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md">Download</a><span class="browsers__item__version">Safari v.16</span></div>
         <div class="browsers__item__sos" flex="jc:ce ai:ce fd:co" wdh="100%" pad="0-.5/5.16@md">
           <h3 class="title" marb="12">Available on</h3>
           <div flex="jc:ce ai:ce fd:co@md-lg">
@@ -165,8 +206,8 @@
           <h2 class="title">Opera</h2>
           <div class="browsers__item__logo" marb="15 16@md"><img class="browsers__item__logo__base" src="images/browser/opera.svg" wdh="50 80@md" hgt="50 80@md" alt="Opera"/><img class="browsers__item__logo__hover" src="images/browser/opera-color.svg" wdh="50 80@md" hgt="50 80@md" alt="Opera"/></div>
         </header>
-        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">1.22%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
-        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.opera.com/download" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md" download="download">Download</a><span class="browsers__item__version">Opera v.78.0.4093.147</span></div>
+        <p class="browsers__item__percentage" marb="24@-md" flex="jc:ce ai:ce fd:co or:-1"><span class="browsers__item__percentage__number" marb="8 9@md">1.17%</span><span class="title" flex="jc:ce ai:ce fd:co">people are using<br/>this browser</span></p>
+        <div class="browsers__item__download" marb="30@-md" flex="jc:ce ai:ce fd:co" wdh="100%"><a class="title browsers__item__download__btn" href="https://www.opera.com/download" cols="9 6@sm 4/5.16@md" flex="jc:ce ai:ce" marb="12" mxw="180 152@md-lg" hgt="38 44@md">Download</a><span class="browsers__item__version">Opera v.88.0.4412.53</span></div>
         <div class="browsers__item__sos" flex="jc:ce ai:ce fd:co" wdh="100%" pad="0-.5/5.16@md">
           <h3 class="title" marb="12">Available on</h3>
           <div flex="jc:ce ai:ce fd:co@md-lg">
@@ -188,6 +229,14 @@
           </div>
         </div>
       </article>
+      <div class="info">
+        <svg class="icon icon-tabler icon-tabler-info-circle" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <circle cx="12" cy="12" r="9"></circle>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          <polyline points="11 12 12 12 12 16 13 16"></polyline>
+        </svg>
+      </div>
     </section>
     <link rel="stylesheet" href="app.css">
     <script src="app.js"></script>
